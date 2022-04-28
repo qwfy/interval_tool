@@ -20,6 +20,18 @@ def drop_short(xss, min_emit_length, start_fn, stop_fn):
 
 @tail_recursive
 def max_min_merge(xss, max_break, min_emit_length, buf, acc, start_fn, stop_fn):
+    """
+    Merge a list of increasing intervals, where intervals with small gaps are merged together.
+
+    :param xss: xss := [xs], where xs represents an interval
+    :param max_break: the maximum gap allowed between two merged intervals
+    :param min_emit_length: if a merged interval is shorter than this threshold, it is dropped from the final result
+    :param buf: the current merging interval
+    :param acc: the already merged intervals
+    :param start_fn: (xs) -> start of the interval
+    :param stop_fn: (xs) -> stop of the interval
+    :return: [xss], where xss := [xs] represents one merged interval (merged from [xs])
+    """
     if not xss:
         # exhausted, consume the buffer
         if buf is not None:
